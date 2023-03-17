@@ -16,6 +16,9 @@ import java.util.List;
 @ApplicationScoped
 public class TodoRepository implements PanacheRepository<Todo> {
 
+    @Inject
+    EntityManager em;
+
     public List<Todo> listAll() {
         return findAll().list();
     }
@@ -26,12 +29,12 @@ public class TodoRepository implements PanacheRepository<Todo> {
 
     @Transactional
     public void create(Todo todo) {
-        persist(todo);
+        em.merge(todo);
     }
 
     @Transactional
     public void delete(Todo todo) {
-        delete(todo);
+        em.remove(todo);
     }
 
 }
