@@ -37,6 +37,7 @@ public class TodoResource {
 
     @POST
     @Transactional
+    @RolesAllowed("admin") // Only users with the "admin" role can access this resource
     public Response createTodo(Todo todo) {
         todoRepository.create(todo);
         return Response.status(Response.Status.CREATED).entity(todo).build();
@@ -46,6 +47,7 @@ public class TodoResource {
     @PUT
     @Path("/{id}")
     @Transactional
+    @RolesAllowed("admin") // Only users with the "admin" role can access this resource
 
     public Response updateTodoById(@PathParam("id") Long id, Todo todoToUpdate) {
         Todo existingTodo = todoRepository.findById(id);
@@ -63,7 +65,7 @@ public class TodoResource {
     @DELETE
     @Path("/{id}")
     @Transactional
-    @RolesAllowed("role2") // Only users with the "admin" role can access this resource
+    @RolesAllowed("admin") // Only users with the "admin" role can access this resource
 
 
     public Response deleteTodoById(@PathParam("id") Long id) {
