@@ -1,2 +1,4 @@
 # todo
+
+./mvnw quarkus:dev
  
