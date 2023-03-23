@@ -1,10 +1,12 @@
 package org.acme.API;
 
 import org.acme.Entity.Todo;
+import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement;
+
+import io.quarkus.security.Authenticated;
+
 import org.acme.Dao.TodoRepository;
 
-import javax.annotation.security.PermitAll;
-import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
@@ -13,6 +15,8 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/todos")
+@SecurityRequirement(name = "Keycloak")
+@Authenticated
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 
@@ -39,7 +43,6 @@ public class TodoResource {
 
     @POST
     @Transactional
-    @RolesAllowed("admin") // Only users with the "admin" role can access this resource
     public Response createTodo(Todo todo) {
         todoRepository.create(todo);
         return Response.status(Response.Status.CREATED).entity(todo).build();
@@ -49,8 +52,6 @@ public class TodoResource {
     @PUT
     @Path("/{id}")
     @Transactional
-    @RolesAllowed("admin") // Only users with the "admin" role can access this resource
-
     public Response updateTodoById(@PathParam("id") Long id, Todo todoToUpdate) {
         Todo existingTodo = todoRepository.findById(id);
         if (existingTodo == null) {
@@ -67,7 +68,6 @@ public class TodoResource {
     @DELETE
     @Path("/{id}")
     @Transactional
-    @RolesAllowed("admin") // Only users with the "admin" role can access this resource
     public Response deleteTodoById(@PathParam("id") Long id) {
         Todo existingTodo = todoRepository.findById(id);
         if (existingTodo == null) {
