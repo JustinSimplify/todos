@@ -10,16 +10,20 @@ public class Todo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "user_id", nullable = false)
+    private String user_Id;
+
     @Column(name = "title", nullable = false)
     private String title;
 
     @Column(name = "completed", nullable = false)
     private Boolean completed;
 
-    public Todo(Long id, String title, Boolean completed) {
+    public Todo(Long id, String title, Boolean completed, String user_Id) {
         this.id = id;
         this.title = title;
         this.completed = completed;
+        this.user_Id = user_Id;
     }
 
     public Todo() {
@@ -31,6 +35,14 @@ public class Todo {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUserId() {
+        return user_Id;
+    }
+
+    public void setUserId(String userId) {
+        this.user_Id = userId;
     }
 
     public String getTitle() {
@@ -58,4 +70,6 @@ public class Todo {
                 ", completed=" + completed +
                 '}';
     }
+
+
 }

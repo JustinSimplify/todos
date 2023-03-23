@@ -2,6 +2,7 @@ package org.acme.API;
 
 import org.acme.Entity.Todo;
 import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement;
+import io.quarkus.security.identity.SecurityIdentity;
 
 import io.quarkus.security.Authenticated;
 
@@ -25,6 +26,9 @@ public class TodoResource {
     @Inject
     TodoRepository todoRepository;
 
+    @Inject
+    SecurityIdentity securityIdentity;
+
     @GET
     public List<Todo> getAllTodos() {
         return todoRepository.listAll();
@@ -44,6 +48,8 @@ public class TodoResource {
     @POST
     @Transactional
     public Response createTodo(Todo todo) {
+        String userId = securityIdentity.getPrincipal().getName(); // Get user ID
+        todo.setUserId(userId); // Set the user ID
         todoRepository.create(todo);
         return Response.status(Response.Status.CREATED).entity(todo).build();
     }
