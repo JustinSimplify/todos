@@ -3,6 +3,7 @@ package org.acme.API;
 import org.acme.Entity.Todo;
 import org.acme.Dao.TodoRepository;
 
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -14,6 +15,7 @@ import java.util.List;
 @Path("/todos")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+
 public class TodoResource {
 
     @Inject
@@ -66,8 +68,6 @@ public class TodoResource {
     @Path("/{id}")
     @Transactional
     @RolesAllowed("admin") // Only users with the "admin" role can access this resource
-
-
     public Response deleteTodoById(@PathParam("id") Long id) {
         Todo existingTodo = todoRepository.findById(id);
         if (existingTodo == null) {
