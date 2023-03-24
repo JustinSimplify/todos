@@ -57,7 +57,7 @@ public class TodoService {
 
         if (existingTodo == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
-        } else if (Objects        .equals(existingTodo.getUserId(), userId)) {
+        } else if (Objects.equals(existingTodo.getUserId(), userId)) {
             existingTodo.setTitle(todoToUpdate.getTitle());
             existingTodo.setCompleted(todoToUpdate.getCompleted());
             todoRepository.persist(existingTodo);
