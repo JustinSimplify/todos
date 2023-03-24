@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.UUID;
 
 @ApplicationScoped
 public class TodoRepository implements PanacheRepository<Todo> {
@@ -23,7 +24,7 @@ public class TodoRepository implements PanacheRepository<Todo> {
         return findAll().list();
     }
 
-    public Todo findById(Long id) {
+    public Todo findById(UUID id) {
         return find("id", id).firstResult();
     }
 
