@@ -66,7 +66,7 @@ public class TodoService {
             existingTodo.setTitle(todoToUpdate.getTitle());
             existingTodo.setCompleted(todoToUpdate.getCompleted());
             todoRepository.persist(existingTodo);
-            return Response.ok(convertToDTO(existingTodo)).build();
+            return Response.ok(new TodoDTO(existingTodo)).build();
         }
         return Response.noContent().build();
     }
