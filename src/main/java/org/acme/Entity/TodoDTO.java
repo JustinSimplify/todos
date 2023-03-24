@@ -1,5 +1,7 @@
 package org.acme.Entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.UUID;
 
 // Date transfer object
@@ -13,8 +15,11 @@ public class TodoDTO {
     }
 
     public TodoDTO(UUID id, String title, Boolean completed) {
+            this.id = id;
+            this.title = title;
+            this.completed = completed;
+        }
 
-    }
 
     public TodoDTO(Todo todo) {
         this.id = todo.getId();
@@ -33,9 +38,11 @@ public class TodoDTO {
     public Boolean getCompleted() {
         return completed;
     }
+    @JsonProperty
     public UUID getId() {
         return id;
     }
+
 
     public void setId(UUID id) {
         this.id = id;
