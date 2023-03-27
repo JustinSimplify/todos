@@ -52,7 +52,8 @@ public class TodoService {
         Todo todo = todoCreateDTO.toEntity();
         todo.setUserId(userId); // Set the user ID
         todoRepository.create(todo);
-        return Response.status(Response.Status.CREATED).entity(new TodoDTO(todo)).build();
+        TodoDTO todoDTO = new TodoDTO(todo.getId(), todo.getTitle(), todo.getCompleted());
+        return Response.status(Response.Status.CREATED).entity(todoDTO).build();
     }
 
     @Transactional
