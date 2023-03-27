@@ -30,8 +30,9 @@ public class TodoRepository implements PanacheRepository<Todo> {
 
     @Transactional
     public void create(Todo todo) {
-        em.merge(todo);
+        em.persist(todo);
     }
+
 
     @Transactional
     public void delete(Todo todo) {
